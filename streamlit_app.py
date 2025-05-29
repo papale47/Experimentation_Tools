@@ -9,6 +9,8 @@ from datetime import timedelta
 from statsmodels.stats.power import TTestIndPower
 import io
 from openpyxl import Workbook
+import analytics
+analytics.write_key = "nUzwf3ihSuCx1zOfJBXlDxMYu9IGwnhJ"  
 
 # Set page config for wider layout
 st.set_page_config(layout="wide")
@@ -549,6 +551,7 @@ if st.session_state.df is not None and not st.session_state.df.empty:
         
         # Run power analysis
         if st.button("Run Power Analysis"):
+            analytics.track("Run Power Analysis Clicked", {"tool": "Experimentation Toolkit"})
             with st.spinner("Running power analysis..."):
                 master_df = power_analysis_for_2_sample_proportions_ztest(
                     DAILY_SIGNUP_THROUGHPUT=daily_throughput,
